@@ -19,7 +19,7 @@ public class ClientSocketMiddleware (RequestDelegate next, ClientWebSocketCache 
         try {
             WebSocket client = await context.WebSockets.AcceptWebSocketAsync();
             _cache.Add(userId,client);
-            var identity = new Packet(PacketType.PACKET_IDENTITY,new AuthorPayload {authorId = userId});
+            var identity = new Packet(PacketType.PACKET_IDENTITY,JsonSerializer.SerializeToElement(new AuthorPayload {authorId = userId}));
             await _cache.SendAsync(identity,client);
             await ReceiveFromSocket(client,new CancellationToken(false));
             await _cache.RemoveAsync(userId);

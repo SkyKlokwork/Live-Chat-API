@@ -1,10 +1,11 @@
+using System.Text.Json;
 using System.Text.Json.Nodes;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Klokwork.ChatApp.DataSources.Client;
+// any way to clean this up?
 public record AuthorPayload {
     public string authorId {get; set;} = UniqueId.CreateRandomId();
-
 }
 public record RoutingPayload : AuthorPayload {
     public string channelId {get; set;} = UniqueId.CreateRandomId();
@@ -17,4 +18,8 @@ public record MessagePayload : RoutingPayload{
 }
 public record ImagePayload : RoutingPayload {
     
+}
+public record RoomData : AuthorPayload {
+    public string? channelId {get; set;}
+    public required JsonObject obj {get; set;}
 }

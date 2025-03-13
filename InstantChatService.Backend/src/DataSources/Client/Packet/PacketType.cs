@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Klokwork.ChatApp.DataSources.Client;
 public enum PacketType : byte {
     // TODO: Review Hexadecimal values to make sure they observe a standard (assuming there is one, if not make one, dummy!)

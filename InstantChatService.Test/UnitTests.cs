@@ -101,9 +101,9 @@ public class UnitTests
 		var client = OpenClient(host);
 		Assert.NotNull(client);
 		var Receive = (CancellationToken token) => {return Task.Run(() => Listener(client,token));};
-		await SendPacket(client,new Packet(PacketType.PACKET_MESSAGE,new MessagePayload {
+		await SendPacket(client,new Packet(PacketType.PACKET_MESSAGE,JsonSerializer.SerializeToElement(new MessagePayload {
 			message = "Hello World",
-		}));
+		})));
 		var cancel = await CloseClient(client,"fish");
 		await Receive.Invoke(cancel);
 		await host.StopAsync();
